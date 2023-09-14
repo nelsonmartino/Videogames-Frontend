@@ -35,11 +35,14 @@ export const orderByRating = (order) => {
   return { type: ORDER_BY_RATING, payload: order };
 };
 
-export const searchGames = (word) => {
+export const searchGames = (word, setPage) => {
   return async function (dispatch) {
     axios
       .get(`${URL_BACKEND}/videogames/name?search=${word}`)
-      .then((res) => dispatch({ type: SEARCH_VIDEOGAMES, payload: res.data }))
+      .then((res) => {
+        dispatch({ type: SEARCH_VIDEOGAMES, payload: res.data })
+        setPage(1)
+      })
       .catch((error) => alert(error));
   };
 };

@@ -12,7 +12,7 @@ import axios from "axios";
 import { SearchBar } from "../index";
 import { URL_BACKEND } from "../../utils/backend";
 
-function NavBar() {
+function NavBar({ setPage }) {
   const dispatch = useDispatch();
 
   const location = useLocation();
@@ -43,6 +43,7 @@ function NavBar() {
     const value = event.target.value;
     setDefaultValue({ ...defaultValue, [filter]: value });
     dispatch(filterAction({ ...defaultValue, [filter]: value }));
+    setPage(1);
   };
 
   const nameHandler = (event) => {
@@ -78,7 +79,7 @@ function NavBar() {
         </div>
         {location.pathname === "/home" && (
           <div className={style.searchbar}>
-            <SearchBar setDefaultValue={setDefaultValue} />
+            <SearchBar setDefaultValue={setDefaultValue} setPage={setPage} />
           </div>
         )}
       </div>
